@@ -36,13 +36,28 @@ const popularPlans = [
   'Low Maintenance', 'Wildlife Friendly', 'Cottage Style',
 ];
 
-/* Included items — icon circles + short labels */
+/* Included items — SVG line icons + short labels */
 const included = [
-  { emoji: '📐', label: 'Custom garden layout & tips' },
-  { emoji: '🌱', label: 'Plant & product recommendations' },
-  { emoji: '📋', label: 'Easy step-by-step guide' },
-  { emoji: '🛒', label: 'Shopping list with budget' },
-  { emoji: '📅', label: 'Care guide for long-term success' },
+  {
+    d: 'M3 3h18v18H3zM9 3v18M3 9h18M3 15h18',
+    label: 'Custom garden layout & tips',
+  },
+  {
+    d: 'M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10',
+    label: 'Plant & product recommendations',
+  },
+  {
+    d: 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 4 0M9 5h6M9 12l2 2 4-4',
+    label: 'Easy step-by-step guide',
+  },
+  {
+    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
+    label: 'Shopping list with budget',
+  },
+  {
+    d: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+    label: 'Care guide for long-term success',
+  },
 ];
 
 /* Retailers — typographic brand treatment, NOT buttons */
@@ -179,7 +194,9 @@ export default function HowItWorks() {
                   background: 'linear-gradient(135deg, #1e5c30 0%, #3d8c50 100%)',
                 }}
               >
-                <span style={{ fontSize: 26 }}>🌿</span>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10"/>
+                </svg>
               </div>
               <div>
                 <p style={{ fontSize: 13.5, fontWeight: 700, color: '#111827', lineHeight: 1.35, marginBottom: 4 }}>
@@ -223,7 +240,7 @@ export default function HowItWorks() {
                 What's <span style={{ color: '#256b28' }}>included</span> in your plan
               </h2>
               <div className="flex gap-6 flex-wrap">
-                {included.map(({ emoji, label }) => (
+                {included.map(({ d, label }) => (
                   <div
                     key={label}
                     className="flex flex-col items-center text-center"
@@ -236,10 +253,11 @@ export default function HowItWorks() {
                         height: 56,
                         background: '#f0f7f0',
                         border: '1.5px solid #c8dfc8',
-                        fontSize: 22,
                       }}
                     >
-                      {emoji}
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                        <path d={d} />
+                      </svg>
                     </div>
                     <p style={{ fontSize: 11.5, fontWeight: 500, color: '#374151', lineHeight: 1.4 }}>
                       {label}

@@ -1,8 +1,30 @@
-import type { StyleConfig } from '../types';
+import type { StyleConfig, ProductCategory } from '../types';
 
 interface Props {
   style: StyleConfig;
   products: StyleConfig['products'];
+}
+
+/* ── Category icon paths (same set as ShoppablePlan) ── */
+const CAT_ICON_PATH: Record<ProductCategory, string> = {
+  'Plants':              'M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10',
+  'Pots & Planters':     'M8 22h8M9 22V17M15 22V17M6 17h12M7 10h10l-1 7H8l-1-7zM9 10V7a3 3 0 0 1 6 0v3',
+  'Paving & Edging':     'M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z',
+  'Soil & Ground Finish':'M2 20h20M6 20V10l6-6 6 6v10M10 20v-6h4v6',
+  'Lighting':            'M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6H8.2A7 7 0 0 1 5 9a7 7 0 0 1 7-7z',
+  'Furniture':           'M4 19V9a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v10M4 19h16M4 19l-1 2M20 19l1 2M8 9V7a4 4 0 0 1 8 0v2',
+  'Privacy & Structure': 'M3 3h4v18H3zM10 3h4v18h-4zM17 3h4v18h-4z',
+  'Decor & Habitat':     'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+  'Tools & Care':        'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z',
+};
+
+function CategoryIcon({ category, size = 14 }: { category: ProductCategory; size?: number }) {
+  const d = CAT_ICON_PATH[category] ?? 'M12 2l10 10-10 10L2 12z';
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d={d} />
+    </svg>
+  );
 }
 
 export default function PlacementGuide({ style, products }: Props) {
@@ -49,7 +71,9 @@ export default function PlacementGuide({ style, products }: Props) {
                   {zoneProducts.map((product) => (
                     <div key={product.id} className="bg-[#fafaf9] border border-[#e4e9e2] rounded-xl px-3.5 py-3">
                       <div className="flex items-start gap-3">
-                        <span className="text-lg flex-shrink-0 mt-0.5">{product.emoji}</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#f0f7f0] border border-[#e4e9e2] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CategoryIcon category={product.category} size={14} />
+                        </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between gap-2 mb-0.5">
                             <p className="text-[12.5px] font-semibold text-[#111827]">{product.name}</p>

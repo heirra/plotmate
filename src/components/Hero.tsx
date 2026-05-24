@@ -86,9 +86,16 @@ function HeroImagePanel() {
       >
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: '#f0fdf4' }}
+          style={{ background: '#f0fdf4', border: '1.5px solid #c8dfc8' }}
         >
-          <span className="text-2xl leading-none">🇬🇧</span>
+          {/* UK flag colours — simplified cross/union mark */}
+          <svg width="26" height="20" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="60" height="40" rx="3" fill="#012169"/>
+            <path d="M0 0L60 40M60 0L0 40" stroke="white" strokeWidth="8"/>
+            <path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" strokeWidth="4"/>
+            <path d="M30 0V40M0 20H60" stroke="white" strokeWidth="13"/>
+            <path d="M30 0V40M0 20H60" stroke="#C8102E" strokeWidth="8"/>
+          </svg>
         </div>
         <div>
           <p className="text-[14px] font-bold text-[#111827] leading-tight">Designed for UK gardens</p>
@@ -101,7 +108,11 @@ function HeroImagePanel() {
 }
 
 /* ─── Hero ─────────────────────────────────────────────────────── */
-export default function Hero() {
+interface Props {
+  onStart?: () => void;
+}
+
+export default function Hero({ onStart }: Props) {
   return (
     <section
       className="w-full bg-white"
@@ -151,21 +162,23 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-3 mb-8">
-            <a
-              href="#builder"
+            <button
+              onClick={onStart}
               className="inline-flex items-center gap-2 text-white font-semibold rounded-xl transition-colors"
               style={{
                 fontSize: 14.5,
                 padding: '13px 28px',
                 background: '#14532d',
                 boxShadow: '0 3px 16px rgba(20,83,45,0.30)',
+                border: 'none',
+                cursor: 'pointer',
               }}
               onMouseEnter={e => (e.currentTarget.style.background = '#1a6b35')}
               onMouseLeave={e => (e.currentTarget.style.background = '#14532d')}
             >
               Create My Garden Plan
               <ArrowRight size={16} strokeWidth={2.5} />
-            </a>
+            </button>
             <a
               href="#how-it-works"
               className="inline-flex items-center gap-2 font-medium rounded-xl transition-all"

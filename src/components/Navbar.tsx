@@ -42,7 +42,11 @@ function LeafMark() {
   );
 }
 
-export default function Navbar() {
+interface Props {
+  onStart?: () => void;
+}
+
+export default function Navbar({ onStart }: Props) {
   return (
     <nav
       className="w-full bg-white sticky top-0 z-50"
@@ -123,8 +127,8 @@ export default function Navbar() {
           >
             Log in
           </a>
-          <a
-            href="#builder"
+          <button
+            onClick={onStart}
             className="rounded-xl text-white font-semibold transition-colors"
             style={{
               padding: '9px 22px',
@@ -132,12 +136,14 @@ export default function Navbar() {
               fontWeight: 600,
               background: '#256b28',
               boxShadow: '0 2px 8px rgba(37,107,40,0.25)',
+              border: 'none',
+              cursor: 'pointer',
             }}
             onMouseEnter={e => (e.currentTarget.style.background = '#1e5c23')}
             onMouseLeave={e => (e.currentTarget.style.background = '#256b28')}
           >
-            Sign up
-          </a>
+            Get started
+          </button>
         </div>
       </div>
     </nav>

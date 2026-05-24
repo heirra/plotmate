@@ -15,11 +15,36 @@ const CATEGORIES: ProductCategory[] = [
   'Lighting', 'Furniture', 'Privacy & Structure', 'Decor & Habitat', 'Tools & Care',
 ];
 
-const CAT_EMOJI: Record<ProductCategory, string> = {
-  'Plants': '🌿', 'Pots & Planters': '🏺', 'Paving & Edging': '🪨',
-  'Soil & Ground Finish': '🍂', 'Lighting': '💡', 'Furniture': '🪑',
-  'Privacy & Structure': '🪵', 'Decor & Habitat': '🐦', 'Tools & Care': '✂️',
+/* ── Category SVG icon paths (24×24 viewBox, lucide-style stroke icons) ── */
+const CAT_ICON_PATH: Record<ProductCategory, string> = {
+  'Plants':              'M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10',
+  'Pots & Planters':     'M8 22h8M9 22V17M15 22V17M6 17h12M7 10h10l-1 7H8l-1-7zM9 10V7a3 3 0 0 1 6 0v3',
+  'Paving & Edging':     'M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z',
+  'Soil & Ground Finish':'M2 20h20M6 20V10l6-6 6 6v10M10 20v-6h4v6',
+  'Lighting':            'M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6H8.2A7 7 0 0 1 5 9a7 7 0 0 1 7-7z',
+  'Furniture':           'M4 19V9a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v10M4 19h16M4 19l-1 2M20 19l1 2M8 9V7a4 4 0 0 1 8 0v2',
+  'Privacy & Structure': 'M3 3h4v18H3zM10 3h4v18h-4zM17 3h4v18h-4z',
+  'Decor & Habitat':     'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+  'Tools & Care':        'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z',
 };
+
+function CategoryIcon({ category, size = 14, color = 'currentColor' }: { category: ProductCategory; size?: number; color?: string }) {
+  const d = CAT_ICON_PATH[category] ?? 'M12 2l10 10-10 10L2 12z';
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={d} />
+    </svg>
+  );
+}
 
 const budgetCfg = {
   under: { label: 'Under budget', bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
@@ -34,9 +59,9 @@ function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQ
   return (
     <div className={`border-b border-[#f0f0ee] last:border-0 transition-colors ${showDetail ? 'bg-[#fafaf9]' : 'bg-white hover:bg-[#fafaf9]'}`}>
       <div className="flex items-center gap-3 px-5 py-3.5">
-        {/* Emoji icon */}
-        <div className="w-9 h-9 bg-[#fafaf9] border border-[#e4e9e2] rounded-xl flex items-center justify-center flex-shrink-0 text-lg">
-          {product.emoji}
+        {/* Category icon */}
+        <div className="w-9 h-9 bg-[#f0f7f0] border border-[#e4e9e2] rounded-xl flex items-center justify-center flex-shrink-0 text-[#256b28]">
+          <CategoryIcon category={product.category} size={15} color="#256b28" />
         </div>
 
         {/* Product info */}
@@ -54,14 +79,14 @@ function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQ
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <button
             onClick={() => onUpdateQuantity(product.id, -1)}
-            className="w-6 h-6 rounded-lg border border-[#e4e9e2] flex items-center justify-center text-[#6b7280] hover:border-[#14532d] hover:text-[#14532d] transition-colors font-bold text-sm"
+            className="w-6 h-6 rounded-lg border border-[#e4e9e2] flex items-center justify-center text-[#6b7280] hover:border-[#256b28] hover:text-[#256b28] transition-colors font-bold text-sm"
           >
             −
           </button>
           <span className="text-[13px] font-semibold text-[#111827] w-5 text-center">{product.quantity}</span>
           <button
             onClick={() => onUpdateQuantity(product.id, 1)}
-            className="w-6 h-6 rounded-lg border border-[#e4e9e2] flex items-center justify-center text-[#6b7280] hover:border-[#14532d] hover:text-[#14532d] transition-colors font-bold text-sm"
+            className="w-6 h-6 rounded-lg border border-[#e4e9e2] flex items-center justify-center text-[#6b7280] hover:border-[#256b28] hover:text-[#256b28] transition-colors font-bold text-sm"
           >
             +
           </button>
@@ -142,15 +167,15 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
         <div className="flex gap-2">
           <button
             className="text-[12px] font-semibold px-4 py-2 rounded-xl text-white flex items-center gap-1.5 transition-all"
-            style={{ background: '#14532d' }}
+            style={{ background: '#256b28' }}
             onClick={() => alert('Opening retail partners directory...')}
-            onMouseEnter={e => (e.currentTarget.style.background = '#166534')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#14532d')}
+            onMouseEnter={e => (e.currentTarget.style.background = '#1e5c23')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#256b28')}
           >
             Retail partners <ExternalLink size={11} />
           </button>
           <button
-            className="bg-white border border-[#e4e9e2] text-[#6b7280] text-[12px] font-medium px-3 py-2 rounded-xl hover:border-[#14532d] hover:text-[#14532d] transition-colors flex items-center gap-1.5"
+            className="bg-white border border-[#e4e9e2] text-[#6b7280] text-[12px] font-medium px-3 py-2 rounded-xl hover:border-[#256b28] hover:text-[#256b28] transition-colors flex items-center gap-1.5"
             onClick={() => alert('Exporting shopping list as PDF...')}
           >
             Export <Download size={11} />
@@ -163,24 +188,25 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
         <button
           onClick={() => setActiveCategory('All')}
           className={`text-[11.5px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-colors flex-shrink-0 ${
-            activeCategory === 'All' ? 'bg-[#14532d] text-white' : 'text-[#6b7280] bg-[#fafaf9] border border-[#e4e9e2] hover:border-[#14532d]/40 hover:text-[#14532d]'
+            activeCategory === 'All' ? 'bg-[#256b28] text-white' : 'text-[#6b7280] bg-[#fafaf9] border border-[#e4e9e2] hover:border-[#256b28]/40 hover:text-[#256b28]'
           }`}
         >
           All ({products.length})
         </button>
         {presentCategories.map((cat) => {
           const count = products.filter((p) => p.category === cat).length;
+          const isActive = activeCategory === cat;
           return (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`text-[11.5px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1.5 transition-colors flex-shrink-0 ${
-                activeCategory === cat ? 'bg-[#14532d] text-white' : 'text-[#6b7280] bg-[#fafaf9] border border-[#e4e9e2] hover:border-[#14532d]/40 hover:text-[#14532d]'
+                isActive ? 'bg-[#256b28] text-white' : 'text-[#6b7280] bg-[#fafaf9] border border-[#e4e9e2] hover:border-[#256b28]/40 hover:text-[#256b28]'
               }`}
             >
-              <span>{CAT_EMOJI[cat]}</span>
+              <CategoryIcon category={cat} size={11} color={isActive ? 'white' : '#6b7280'} />
               {cat}
-              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${activeCategory === cat ? 'bg-white/20' : 'bg-[#e4e9e2] text-[#6b7280]'}`}>
+              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-[#e4e9e2] text-[#6b7280]'}`}>
                 {count}
               </span>
             </button>

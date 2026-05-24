@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:win": "node build.mjs",
+    "css": "tailwindcss -i src/index.css -o dist/assets/index.css --minify",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -17,7 +19,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@tailwindcss/vite": "^4.3.0",
+    "@rollup/wasm-node": "^4.60.4",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

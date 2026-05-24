@@ -7,7 +7,11 @@ const features = [
   'No signup required',
 ];
 
-export default function FinalCTA() {
+interface Props {
+  onStart?: () => void;
+}
+
+export default function FinalCTA({ onStart }: Props) {
   return (
     <section className="w-full py-20 px-6" style={{ background: '#14532d' }}>
       <div className="max-w-3xl mx-auto text-center">
@@ -28,21 +32,22 @@ export default function FinalCTA() {
 
         {/* CTAs */}
         <div className="flex items-center justify-center gap-4 mb-10">
-          <a
-            href="#builder"
+          <button
+            onClick={onStart}
             className="bg-white text-[#14532d] text-[14px] font-semibold px-6 py-3 rounded-xl hover:bg-[#f0fdf4] transition-colors flex items-center gap-2"
+            style={{ border: 'none', cursor: 'pointer' }}
           >
             Start your free design
             <ArrowRight size={15} />
-          </a>
-          <a
-            href="#builder"
+          </button>
+          <button
+            onClick={onStart}
             className="text-[14px] font-medium hover:opacity-100 transition-opacity flex items-center gap-1.5"
-            style={{ color: 'rgba(187,247,208,0.8)' }}
+            style={{ color: 'rgba(187,247,208,0.8)', background: 'none', border: 'none', cursor: 'pointer' }}
           >
             See example gardens
             <ArrowRight size={13} />
-          </a>
+          </button>
         </div>
 
         {/* Feature list */}
