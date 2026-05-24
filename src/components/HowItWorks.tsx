@@ -1,44 +1,42 @@
 /* ─────────────────────────────────────────────────────────────────
-   HowItWorks — 4-step process + popular plans + what's included
-   Matches reference image layout
+   HowItWorks — matches reference image layout:
+   • Horizontal 4-step process with arrows
+   • Popular plan chips + featured plan card on right
+   • What's included icon grid
+   • Typographic retailer brand row (not button chips)
+   • 3 value proposition callouts
 ───────────────────────────────────────────────────────────────── */
 
+/* ── Step icons (outline circle with inner SVG path) ─────────── */
 const steps = [
   {
-    num: 1,
-    svgD: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
+    n: 1,
+    d: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
     title: 'Tell us about your space',
-    desc: 'Enter your postcode, space type, sunlight, budget, and style.',
   },
   {
-    num: 2,
-    svgD: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+    n: 2,
+    d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
     title: 'AI creates your garden plan',
-    desc: 'Get a personalised kit: product list, placement guide, and preview.',
   },
   {
-    num: 3,
-    svgD: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M16 10a4 4 0 0 1-8 0',
+    n: 3,
+    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M16 10a4 4 0 0 1-8 0',
     title: 'Review your shopping list',
-    desc: 'Browse every product, adjust quantities, check total cost.',
   },
   {
-    num: 4,
-    svgD: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M9 12l2 2 4-4',
+    n: 4,
+    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M9 12l2 2 4-4',
     title: 'Buy from trusted UK retailers',
-    desc: 'Each product links to Crocus, Primrose, Thompson & Morgan and more.',
   },
 ];
 
 const popularPlans = [
-  { icon: '🏡', label: 'Small Patio' },
-  { icon: '🌿', label: 'Rented Balcony' },
-  { icon: '🌲', label: 'North-facing Garden' },
-  { icon: '✂️', label: 'Low Maintenance' },
-  { icon: '🦔', label: 'Wildlife Friendly' },
-  { icon: '🌸', label: 'Cottage Style' },
+  'Small Patio', 'Rented Balcony', 'North-facing Garden',
+  'Low Maintenance', 'Wildlife Friendly', 'Cottage Style',
 ];
 
+/* Included items — icon circles + short labels */
 const included = [
   { emoji: '📐', label: 'Custom garden layout & tips' },
   { emoji: '🌱', label: 'Plant & product recommendations' },
@@ -47,197 +45,265 @@ const included = [
   { emoji: '📅', label: 'Care guide for long-term success' },
 ];
 
-const retailers = ['CROCUS', 'Thompson & Morgan', 'Primrose', 'Sarah Raven', 'amazon.co.uk'];
-
-const valueProps = [
-  {
-    svgD: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
-    title: 'Beginner friendly',
-    desc: 'Simple plans that anyone can follow.',
-  },
-  {
-    svgD: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
-    title: 'Realistic & practical',
-    desc: 'Plans that suit your space, time and budget.',
-  },
-  {
-    svgD: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
-    title: 'Beautiful & sustainable',
-    desc: "Create a garden you'll love for years to come.",
-  },
+/* Retailers — typographic brand treatment, NOT buttons */
+const retailers = [
+  { name: 'Crocus',             style: { fontSize: 18, fontWeight: 800, color: '#5b21b6', letterSpacing: '-0.02em' } },
+  { name: 'Thompson & Morgan',  style: { fontSize: 14, fontWeight: 700, color: '#166534', letterSpacing: '-0.01em' } },
+  { name: 'Primrose',           style: { fontSize: 18, fontWeight: 800, color: '#b91c1c', letterSpacing: '-0.02em' } },
+  { name: 'Sarah Raven',        style: { fontSize: 14, fontWeight: 800, color: '#7c2d12', letterSpacing: '0.04em', textTransform: 'uppercase' as const } },
+  { name: 'amazon.co.uk',       style: { fontSize: 17, fontWeight: 800, color: '#1a1a1a', letterSpacing: '-0.02em' } },
 ];
+
+/* Arrow connector between steps */
+function Arrow() {
+  return (
+    <svg width="32" height="16" viewBox="0 0 32 16" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d="M1 8 H28 M24 3 L30 8 L24 13" stroke="#c8ccc6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
 export default function HowItWorks() {
   return (
-    <div id="how-it-works">
+    <div id="how-it-works" className="bg-white" style={{ borderBottom: '1px solid #e8ebe6' }}>
 
-      {/* ── Section 1: How it works + Popular plans ───────────────── */}
-      <div className="bg-white" style={{ borderBottom: '1px solid #e8ebe6' }}>
-        <div className="max-w-[1440px] mx-auto px-8 py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px_280px] gap-8 items-start">
+      {/* ══ SECTION 1: How it works + Popular plans ════════════════ */}
+      <div className="max-w-[1440px] mx-auto px-8 py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px_260px] gap-8 items-start">
 
-            {/* Steps */}
-            <div>
-              <h2 className="text-[20px] font-bold text-[#111827] mb-7">How it works</h2>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-7">
-                {steps.map((step, i) => (
-                  <div key={step.num} className="flex gap-4 items-start">
-                    <div className="flex flex-col items-center gap-2 flex-shrink-0">
-                      <div
-                        className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                        style={{ background: '#f0f7f0', border: '1px solid #c8dfc8' }}
-                      >
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          {step.svgD.split(' ').length > 0 && <path d={step.svgD}/>}
-                        </svg>
-                      </div>
+          {/* ── 4-step horizontal process ── */}
+          <div>
+            <h2 className="text-[20px] font-bold text-[#111827] mb-8">How it works</h2>
+            <div className="flex items-start gap-3">
+              {steps.map((step, i) => (
+                <div key={step.n} className="flex items-start gap-3">
+                  {/* Step block */}
+                  <div className="flex flex-col items-center text-center" style={{ width: 100 }}>
+                    {/* Circle icon */}
+                    <div
+                      className="relative flex items-center justify-center rounded-full mb-3"
+                      style={{
+                        width: 60,
+                        height: 60,
+                        background: '#f0f7f0',
+                        border: '1.5px solid #c0d8c0',
+                      }}
+                    >
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d={step.d}/>
+                      </svg>
+                      {/* Step number badge */}
                       <span
-                        className="text-[10px] font-bold text-[#9ca3af] w-5 h-5 rounded-full border border-[#e4e9e2] flex items-center justify-center"
+                        className="absolute flex items-center justify-center rounded-full text-white font-bold"
+                        style={{
+                          width: 18,
+                          height: 18,
+                          fontSize: 9,
+                          background: '#256b28',
+                          top: -4,
+                          right: -4,
+                        }}
                       >
-                        {step.num}
+                        {step.n}
                       </span>
                     </div>
-                    {/* Arrow connector (between steps 1→2 and 3→4) */}
-                    {(i === 0 || i === 2) && (
-                      <svg
-                        className="absolute hidden"
-                        width="24"
-                        height="12"
-                        viewBox="0 0 24 12"
-                        fill="none"
-                        style={{ position: 'static' }}
-                      >
-                        <path d="M0 6 H20 M16 2 L22 6 L16 10" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
-                      </svg>
-                    )}
-                    <div>
-                      <p className="text-[14px] font-semibold text-[#111827] mb-1">{step.title}</p>
-                      <p className="text-[13px] text-[#6b7280] leading-relaxed">{step.desc}</p>
-                    </div>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: '#374151', lineHeight: 1.45 }}>
+                      {step.title}
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Popular plans */}
-            <div
-              className="rounded-2xl p-5"
-              style={{ background: '#f9fafb', border: '1px solid #e8ebe6' }}
-            >
-              <p className="text-[15px] font-bold text-[#111827] mb-4">Popular plans</p>
-              <div className="grid grid-cols-2 gap-2">
-                {popularPlans.map(({ icon, label }) => (
-                  <a
-                    key={label}
-                    href="#builder"
-                    className="flex items-center gap-2 text-[13px] font-medium text-[#374151] px-3 py-2.5 rounded-xl bg-white transition-all"
-                    style={{ border: '1px solid #e8ebe6' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#256b28'; (e.currentTarget as HTMLElement).style.color = '#256b28'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#e8ebe6'; (e.currentTarget as HTMLElement).style.color = '#374151'; }}
-                  >
-                    <span className="text-base">{icon}</span>
-                    {label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Featured plan card */}
-            <div
-              className="rounded-2xl overflow-hidden bg-white"
-              style={{ border: '1px solid #e8ebe6', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}
-            >
-              <div className="flex items-center gap-3 p-4">
-                <div
-                  className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #1e5c30 0%, #3d8c50 100%)' }}
-                >
-                  <span className="text-3xl">🌿</span>
+                  {/* Arrow between steps */}
+                  {i < steps.length - 1 && (
+                    <div style={{ paddingTop: 22 }}>
+                      <Arrow />
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="text-[13.5px] font-semibold text-[#111827] leading-snug mb-1">
-                    Small North-facing<br />Patio Garden
-                  </p>
-                  <p className="text-[15px] font-bold text-[#256b28]">from £120</p>
-                  <p className="text-[11px] text-[#9ca3af] mt-0.5">Low maintenance · Easy · Shade loving</p>
-                </div>
-              </div>
-              <div className="px-4 pb-4">
+              ))}
+            </div>
+          </div>
+
+          {/* ── Popular plans — rounded chips ── */}
+          <div
+            className="rounded-2xl p-5"
+            style={{ background: '#f9fafb', border: '1px solid #e8ebe6' }}
+          >
+            <p style={{ fontSize: 15, fontWeight: 700, color: '#111827', marginBottom: 14 }}>
+              Popular plans
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {popularPlans.map((plan) => (
                 <a
+                  key={plan}
                   href="#builder"
-                  className="block w-full text-center text-[13px] font-semibold py-2.5 rounded-xl border-2 transition-all"
-                  style={{ borderColor: '#256b28', color: '#256b28' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#256b28'; (e.currentTarget as HTMLElement).style.color = 'white'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#256b28'; }}
+                  className="transition-all"
+                  style={{
+                    fontSize: 12.5,
+                    fontWeight: 500,
+                    color: '#374151',
+                    padding: '6px 14px',
+                    borderRadius: 999,
+                    background: 'white',
+                    border: '1px solid #e0e4df',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = '#256b28';
+                    (e.currentTarget as HTMLElement).style.color = '#256b28';
+                    (e.currentTarget as HTMLElement).style.background = '#f0f7f0';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = '#e0e4df';
+                    (e.currentTarget as HTMLElement).style.color = '#374151';
+                    (e.currentTarget as HTMLElement).style.background = 'white';
+                  }}
                 >
-                  View this plan
+                  {plan}
                 </a>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Featured plan card ── */}
+          <div
+            className="rounded-2xl overflow-hidden bg-white"
+            style={{ border: '1px solid #e4e9e2', boxShadow: '0 2px 14px rgba(0,0,0,0.08)' }}
+          >
+            <div className="flex items-start gap-3 p-4">
+              <div
+                className="rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{
+                  width: 72,
+                  height: 72,
+                  background: 'linear-gradient(135deg, #1e5c30 0%, #3d8c50 100%)',
+                }}
+              >
+                <span style={{ fontSize: 26 }}>🌿</span>
               </div>
+              <div>
+                <p style={{ fontSize: 13.5, fontWeight: 700, color: '#111827', lineHeight: 1.35, marginBottom: 4 }}>
+                  Small North-facing<br />Patio Garden
+                </p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: '#256b28' }}>from £120</p>
+                <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 3 }}>
+                  Low maintenance · Easy · Shade loving
+                </p>
+              </div>
+            </div>
+            <div style={{ padding: '0 16px 16px' }}>
+              <a
+                href="#builder"
+                className="block w-full text-center font-semibold rounded-xl transition-all"
+                style={{
+                  padding: '10px 0',
+                  fontSize: 13,
+                  border: '2px solid #256b28',
+                  color: '#256b28',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#256b28'; (e.currentTarget as HTMLElement).style.color = 'white'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#256b28'; }}
+              >
+                View this plan
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Section 2: What's included + Retailers ──────────────── */}
-      <div className="bg-white" style={{ borderBottom: '1px solid #e8ebe6' }}>
+      {/* ══ SECTION 2: What's included + Retailers ════════════════ */}
+      <div style={{ borderTop: '1px solid #f0f0ee' }}>
         <div className="max-w-[1440px] mx-auto px-8 py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 mb-12">
 
-            {/* What's included */}
+            {/* What's included — icon circles + short labels */}
             <div>
-              <h2 className="text-[20px] font-bold text-[#111827] mb-6">
+              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', marginBottom: 24 }}>
                 What's <span style={{ color: '#256b28' }}>included</span> in your plan
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="flex gap-6 flex-wrap">
                 {included.map(({ emoji, label }) => (
-                  <div key={label} className="flex flex-col items-center text-center gap-2 p-4 rounded-2xl" style={{ background: '#f9fafb', border: '1px solid #e8ebe6' }}>
-                    <span className="text-2xl">{emoji}</span>
-                    <span className="text-[12px] font-medium text-[#374151] leading-snug">{label}</span>
+                  <div
+                    key={label}
+                    className="flex flex-col items-center text-center"
+                    style={{ width: 88 }}
+                  >
+                    <div
+                      className="flex items-center justify-center rounded-full mb-2.5"
+                      style={{
+                        width: 56,
+                        height: 56,
+                        background: '#f0f7f0',
+                        border: '1.5px solid #c8dfc8',
+                        fontSize: 22,
+                      }}
+                    >
+                      {emoji}
+                    </div>
+                    <p style={{ fontSize: 11.5, fontWeight: 500, color: '#374151', lineHeight: 1.4 }}>
+                      {label}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Retailers */}
+            {/* Retailers — typographic brand treatment */}
             <div>
-              <h2 className="text-[20px] font-bold text-[#111827] mb-6">
+              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', marginBottom: 24 }}>
                 Real products from <span style={{ color: '#256b28' }}>trusted UK retailers</span>
               </h2>
-              <div className="flex flex-wrap gap-3 mb-5">
-                {retailers.map((name) => (
-                  <div
-                    key={name}
-                    className="px-4 py-2.5 rounded-xl text-[13.5px] font-semibold text-[#374151]"
-                    style={{ background: '#f9fafb', border: '1px solid #e8ebe6' }}
-                  >
-                    {name}
-                  </div>
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                {retailers.map(({ name, style }) => (
+                  <span key={name} style={style}>{name}</span>
                 ))}
               </div>
-              <p className="text-[13px] text-[#6b7280] leading-relaxed max-w-sm">
-                Every product links directly to a trusted UK retailer. Compare prices, read reviews, and buy with confidence.
+              <p style={{ fontSize: 13, color: '#9ca3af', marginTop: 16, lineHeight: 1.6, maxWidth: 380 }}>
+                Every product links directly to a trusted UK retailer. Buy with confidence from Crocus, Primrose, Thompson & Morgan, Sarah Raven and amazon.co.uk.
               </p>
             </div>
           </div>
 
-          {/* Value props */}
+          {/* 3 value propositions */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-10"
             style={{ borderTop: '1px solid #f0f0ee' }}
           >
-            {valueProps.map(({ svgD, title, desc }) => (
+            {[
+              {
+                d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
+                title: 'Beginner friendly',
+                desc: 'Simple plans that anyone can follow.',
+              },
+              {
+                d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+                title: 'Realistic & practical',
+                desc: 'Plans that suit your space, time and budget.',
+              },
+              {
+                d: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+                title: 'Beautiful & sustainable',
+                desc: "Create a garden you'll love for years to come.",
+              },
+            ].map(({ d, title, desc }) => (
               <div key={title} className="flex items-start gap-4">
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: '#f0f7f0', border: '1px solid #c8dfc8' }}
+                  className="flex items-center justify-center rounded-2xl flex-shrink-0"
+                  style={{
+                    width: 52,
+                    height: 52,
+                    background: '#f0f7f0',
+                    border: '1.5px solid #c0d8c0',
+                  }}
                 >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={svgD}/>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={d}/>
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[15px] font-semibold text-[#111827] mb-0.5">{title}</p>
-                  <p className="text-[13px] text-[#6b7280] leading-relaxed">{desc}</p>
+                  <p style={{ fontSize: 15, fontWeight: 700, color: '#111827', marginBottom: 2 }}>{title}</p>
+                  <p style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.6 }}>{desc}</p>
                 </div>
               </div>
             ))}
