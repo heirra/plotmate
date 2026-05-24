@@ -29,6 +29,19 @@ export type GardenStyleId =
   | 'korean-zen'
   | 'family-friendly';
 
+export type DifficultyLevel = 'Easy' | 'Moderate' | 'Difficult' | 'Low' | 'High';
+
+export type ProductCategory =
+  | 'Plants'
+  | 'Pots & Planters'
+  | 'Soil & Ground Finish'
+  | 'Lighting'
+  | 'Furniture'
+  | 'Privacy & Structure'
+  | 'Decor & Habitat'
+  | 'Tools & Care'
+  | 'Paving & Edging';
+
 export interface Product {
   id: string;
   name: string;
@@ -38,17 +51,25 @@ export interface Product {
   unitPrice: number;
   emoji: string;
   retailers: string[];
+  placementZone: string;
+  placementNote: string;
 }
 
-export type ProductCategory =
-  | 'Plants'
-  | 'Pots & Planters'
-  | 'Soil & Ground Finish'
-  | 'Lighting'
-  | 'Furniture'
-  | 'Privacy & Structure'
-  | 'Decor'
-  | 'Tools & Care';
+export interface PlacementZone {
+  id: string;
+  label: string;
+  position: string;
+  purpose: string;
+  productIds: string[];
+}
+
+export interface DesignRationale {
+  productFit: string;
+  spatialArrangement: string;
+  maintenanceExplanation: string;
+  installationExplanation: string;
+  spatialExperience: string;
+}
 
 export interface StyleConfig {
   id: GardenStyleId;
@@ -63,6 +84,11 @@ export interface StyleConfig {
   planImage: string;
   isoImage: string;
   products: Product[];
+  placementZones: PlacementZone[];
+  installationDifficulty: DifficultyLevel;
+  maintenanceDifficulty: DifficultyLevel;
+  spatialExperience: string;
+  designRationale: DesignRationale;
   aiInsight: string;
   summary: string;
 }

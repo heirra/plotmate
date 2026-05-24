@@ -1,30 +1,79 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-50:  #f0fdf4;
+  --surface:   #fafaf9;
+  --border:    #e4e9e2;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lifted: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
 }
+
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #FFFFFF;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  /* Warm off-white background so white cards visually lift */
+  background: #f6f7f5;
   color: #111827;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  width: 100%;
-  min-height: 100vh;
+#root { width: 100%; min-height: 100vh; }
+
+.font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Premium card */
+.card {
+  background: #ffffff;
+  border: 1px solid #e4e9e2;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
 }
 
-.scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
+/* Scrollbar */
+.scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+/* Range input */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  background: #e4e9e2;
+  outline: none;
+  width: 100%;
 }
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #14532d;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 1px 6px rgba(20,83,45,0.35);
 }
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #E5E7EB;
-  border-radius: 2px;
+
+/* Select */
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px !important;
 }
+
+.prose-sm p { line-height: 1.7; }
