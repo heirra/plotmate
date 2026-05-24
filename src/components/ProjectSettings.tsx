@@ -1,4 +1,5 @@
 import type { AppState, SpaceType, MaintenanceLevel, Sunlight, MainGoal } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   state: AppState;
@@ -35,15 +36,15 @@ export default function ProjectSettings({ state, onChange }: Props) {
           </svg>
         </div>
         <div>
-          <p className="text-[12.5px] font-semibold text-[#111827] leading-none">Garden settings</p>
-          <p className="text-[10.5px] text-[#9ca3af] mt-0.5">Your plan updates live</p>
+          <p className="text-[12.5px] font-semibold text-[#111827] leading-none">{t.settings.title}</p>
+          <p className="text-[10.5px] text-[#9ca3af] mt-0.5">{t.settings.subtitle}</p>
         </div>
       </div>
 
       <div className="p-5 space-y-5">
         {/* Postcode */}
         <div>
-          <Label>Postcode area</Label>
+          <Label>{t.settings.postcodeLabel}</Label>
           <input
             type="text"
             value={state.postcodeArea}
@@ -53,40 +54,37 @@ export default function ProjectSettings({ state, onChange }: Props) {
           />
           <p className="text-[11px] text-[#9ca3af] mt-1.5 flex items-center gap-1">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            Personalises plant picks for your region
+            {t.settings.postcodeHint}
           </p>
         </div>
 
         {/* Space Type */}
         <div>
-          <Label>Space type</Label>
+          <Label>{t.settings.spaceTypeLabel}</Label>
           <select value={state.spaceType} onChange={(e) => onChange({ spaceType: e.target.value as SpaceType })} className={fieldCls}>
-            {spaceTypes.map((s) => <option key={s}>{s}</option>)}
+            {spaceTypes.map((s) => (
+              <option key={s} value={s}>{t.settings.spaceTypeLabels[s] ?? s}</option>
+            ))}
           </select>
         </div>
 
         {/* Garden Style */}
         <div>
-          <Label>Garden style</Label>
+          <Label>{t.settings.gardenStyleLabel}</Label>
           <select
             value={state.gardenStyleId}
             onChange={(e) => onChange({ gardenStyleId: e.target.value as AppState['gardenStyleId'] })}
             className={fieldCls}
           >
-            <option value="cottage">Cottage Garden</option>
-            <option value="modern-courtyard">Modern Courtyard</option>
-            <option value="wildlife">Wildlife Garden</option>
-            <option value="mediterranean">Mediterranean Patio</option>
-            <option value="low-maintenance">Low-Maintenance Minimal</option>
-            <option value="naturalistic">Naturalistic Garden</option>
-            <option value="korean-zen">Korean Zen</option>
-            <option value="family-friendly">Family-Friendly Garden</option>
+            {Object.entries(t.settings.gardenStyleLabels).map(([id, label]) => (
+              <option key={id} value={id}>{label}</option>
+            ))}
           </select>
         </div>
 
         {/* Maintenance */}
         <div>
-          <Label>Maintenance level</Label>
+          <Label>{t.settings.maintenanceLabel}</Label>
           <div className="grid grid-cols-3 gap-1.5">
             {maintenanceLevels.map((m) => (
               <button
@@ -98,7 +96,7 @@ export default function ProjectSettings({ state, onChange }: Props) {
                     : 'bg-white text-[#6b7280] border-[#e4e9e2] hover:border-[#bbf7d0] hover:text-[#14532d]'
                 }`}
               >
-                {m}
+                {t.settings.maintenanceLabels[m] ?? m}
               </button>
             ))}
           </div>
@@ -106,23 +104,25 @@ export default function ProjectSettings({ state, onChange }: Props) {
 
         {/* Sunlight */}
         <div>
-          <Label>Sunlight</Label>
+          <Label>{t.settings.sunlightLabel}</Label>
           <select value={state.sunlight} onChange={(e) => onChange({ sunlight: e.target.value as Sunlight })} className={fieldCls}>
-            {sunlightOptions.map((s) => <option key={s}>{s}</option>)}
+            {sunlightOptions.map((s) => (
+              <option key={s} value={s}>{t.settings.sunlightLabels[s] ?? s}</option>
+            ))}
           </select>
           <p className="text-[11px] text-[#9ca3af] mt-1.5">
-            {state.sunlight === 'Full sun' ? '6+ hours direct sun' : state.sunlight === 'Part shade' ? '3–6 hours direct sun' : 'Under 3 hours direct sun'}
+            {t.settings.sunlightHints[state.sunlight] ?? ''}
           </p>
         </div>
 
         {/* Budget */}
         <div>
-          <Label>Budget</Label>
+          <Label>{t.settings.budgetLabel}</Label>
           <div className="flex items-center justify-between mb-2.5">
             <span className="text-[22px] font-bold text-[#111827] leading-none">
               £{state.budget >= 1000 ? `${(state.budget / 1000).toFixed(1)}k` : state.budget}
             </span>
-            <span className="text-[11px] text-[#9ca3af]">£500 – £10,000+</span>
+            <span className="text-[11px] text-[#9ca3af]">{t.settings.budgetRange}</span>
           </div>
           <input
             type="range"
@@ -141,9 +141,11 @@ export default function ProjectSettings({ state, onChange }: Props) {
 
         {/* Main Goal */}
         <div>
-          <Label>Main goal</Label>
+          <Label>{t.settings.mainGoalLabel}</Label>
           <select value={state.mainGoal} onChange={(e) => onChange({ mainGoal: e.target.value as MainGoal })} className={fieldCls}>
-            {mainGoals.map((g) => <option key={g}>{g}</option>)}
+            {mainGoals.map((g) => (
+              <option key={g} value={g}>{t.settings.mainGoalLabels[g] ?? g}</option>
+            ))}
           </select>
         </div>
 
@@ -155,9 +157,9 @@ export default function ProjectSettings({ state, onChange }: Props) {
           onMouseLeave={e => (e.currentTarget.style.background = '#14532d')}
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
-          Update design
+          {t.settings.updateBtn}
         </button>
-        <p className="text-center text-[11px] text-[#9ca3af]">Your plan updates live as you change settings</p>
+        <p className="text-center text-[11px] text-[#9ca3af]">{t.settings.updateNote}</p>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { t } from '../content/copy';
+
 /* ─────────────────────────────────────────────────────────────────
    HowItWorks — matches reference image layout:
    • Horizontal 4-step process with arrows
@@ -8,57 +10,25 @@
 ───────────────────────────────────────────────────────────────── */
 
 /* ── Step icons (outline circle with inner SVG path) ─────────── */
-const steps = [
-  {
-    n: 1,
-    d: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
-    title: 'Tell us about your space',
-  },
-  {
-    n: 2,
-    d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
-    title: 'AI creates your garden plan',
-  },
-  {
-    n: 3,
-    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M16 10a4 4 0 0 1-8 0',
-    title: 'Review your shopping list',
-  },
-  {
-    n: 4,
-    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M9 12l2 2 4-4',
-    title: 'Buy from trusted UK retailers',
-  },
+const stepIcons = [
+  'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
+  'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M16 10a4 4 0 0 1-8 0',
+  'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M9 12l2 2 4-4',
 ];
+const steps = t.howItWorks.steps.map((title, i) => ({ n: i + 1, d: stepIcons[i], title }));
 
-const popularPlans = [
-  'Small Patio', 'Rented Balcony', 'North-facing Garden',
-  'Low Maintenance', 'Wildlife Friendly', 'Cottage Style',
-];
+const popularPlans = t.howItWorks.popularPlans;
 
 /* Included items — SVG line icons + short labels */
-const included = [
-  {
-    d: 'M3 3h18v18H3zM9 3v18M3 9h18M3 15h18',
-    label: 'Custom garden layout & tips',
-  },
-  {
-    d: 'M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10',
-    label: 'Plant & product recommendations',
-  },
-  {
-    d: 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 4 0M9 5h6M9 12l2 2 4-4',
-    label: 'Easy step-by-step guide',
-  },
-  {
-    d: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
-    label: 'Shopping list with budget',
-  },
-  {
-    d: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
-    label: 'Care guide for long-term success',
-  },
+const includedIcons = [
+  'M3 3h18v18H3zM9 3v18M3 9h18M3 15h18',
+  'M12 22V12M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7zM7 22h10',
+  'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 4 0M9 5h6M9 12l2 2 4-4',
+  'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
+  'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
 ];
+const included = t.howItWorks.includedItems.map((label, i) => ({ d: includedIcons[i], label }));
 
 /* Retailers — typographic brand treatment, NOT buttons */
 const retailers = [
@@ -88,7 +58,7 @@ export default function HowItWorks() {
 
           {/* ── 4-step horizontal process ── */}
           <div>
-            <h2 className="text-[20px] font-bold text-[#111827] mb-8">How it works</h2>
+            <h2 className="text-[20px] font-bold text-[#111827] mb-8">{t.howItWorks.heading}</h2>
             <div className="flex items-start gap-3">
               {steps.map((step, i) => (
                 <div key={step.n} className="flex items-start gap-3">
@@ -143,7 +113,7 @@ export default function HowItWorks() {
             style={{ background: '#f9fafb', border: '1px solid #e8ebe6' }}
           >
             <p style={{ fontSize: 15, fontWeight: 700, color: '#111827', marginBottom: 14 }}>
-              Popular plans
+              {t.howItWorks.popularHeading}
             </p>
             <div className="flex flex-wrap gap-2">
               {popularPlans.map((plan) => (
@@ -200,11 +170,13 @@ export default function HowItWorks() {
               </div>
               <div>
                 <p style={{ fontSize: 13.5, fontWeight: 700, color: '#111827', lineHeight: 1.35, marginBottom: 4 }}>
-                  Small North-facing<br />Patio Garden
+                  {t.howItWorks.featuredTitle.split('\n').map((line, i) => (
+                    <span key={i}>{line}{i === 0 && <br />}</span>
+                  ))}
                 </p>
-                <p style={{ fontSize: 16, fontWeight: 800, color: '#256b28' }}>from £120</p>
+                <p style={{ fontSize: 16, fontWeight: 800, color: '#256b28' }}>{t.howItWorks.featuredPrice}</p>
                 <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 3 }}>
-                  Low maintenance · Easy · Shade loving
+                  {t.howItWorks.featuredTags}
                 </p>
               </div>
             </div>
@@ -222,7 +194,7 @@ export default function HowItWorks() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#256b28'; (e.currentTarget as HTMLElement).style.color = 'white'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#256b28'; }}
               >
-                View this plan
+                {t.howItWorks.featuredCta}
               </a>
             </div>
           </div>
@@ -237,7 +209,9 @@ export default function HowItWorks() {
             {/* What's included — icon circles + short labels */}
             <div>
               <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', marginBottom: 24 }}>
-                What's <span style={{ color: '#256b28' }}>included</span> in your plan
+                {t.howItWorks.includedHeadingPre}{' '}
+                <span style={{ color: '#256b28' }}>{t.howItWorks.includedHeadingMid}</span>
+                {' '}{t.howItWorks.includedHeadingPost}
               </h2>
               <div className="flex gap-6 flex-wrap">
                 {included.map(({ d, label }) => (
@@ -270,7 +244,8 @@ export default function HowItWorks() {
             {/* Retailers — typographic brand treatment */}
             <div>
               <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', marginBottom: 24 }}>
-                Real products from <span style={{ color: '#256b28' }}>trusted UK retailers</span>
+                {t.howItWorks.retailersHeadingPre}{' '}
+                <span style={{ color: '#256b28' }}>{t.howItWorks.retailersHeadingMid}</span>
               </h2>
               <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
                 {retailers.map(({ name, style }) => (
@@ -278,7 +253,7 @@ export default function HowItWorks() {
                 ))}
               </div>
               <p style={{ fontSize: 13, color: '#9ca3af', marginTop: 16, lineHeight: 1.6, maxWidth: 380 }}>
-                Every product links directly to a trusted UK retailer. Buy with confidence from Crocus, Primrose, Thompson & Morgan, Sarah Raven and amazon.co.uk.
+                {t.howItWorks.retailersNote}
               </p>
             </div>
           </div>
@@ -289,21 +264,9 @@ export default function HowItWorks() {
             style={{ borderTop: '1px solid #f0f0ee' }}
           >
             {[
-              {
-                d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
-                title: 'Beginner friendly',
-                desc: 'Simple plans that anyone can follow.',
-              },
-              {
-                d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
-                title: 'Realistic & practical',
-                desc: 'Plans that suit your space, time and budget.',
-              },
-              {
-                d: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
-                title: 'Beautiful & sustainable',
-                desc: "Create a garden you'll love for years to come.",
-              },
+              { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4', ...t.howItWorks.valueProps[0] },
+              { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', ...t.howItWorks.valueProps[1] },
+              { d: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z', ...t.howItWorks.valueProps[2] },
             ].map(({ d, title, desc }) => (
               <div key={title} className="flex items-start gap-4">
                 <div

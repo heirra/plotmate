@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import type { StyleConfig } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   style: StyleConfig;
@@ -39,7 +40,7 @@ function ImageCard({
           className="text-[11px] font-medium text-[#9ca3af] hover:text-[#166534] flex items-center gap-1 transition-colors"
         >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-          View full size
+          {t.preview.viewFullSize}
         </button>
       </div>
 
@@ -56,7 +57,7 @@ function ImageCard({
               </svg>
             </div>
             <div>
-              <p className="text-[12.5px] font-semibold text-[#6b7280]">Preview image not added yet</p>
+              <p className="text-[12.5px] font-semibold text-[#6b7280]">{t.preview.imgNotAdded}</p>
               <p className="text-[11px] text-[#9ca3af] mt-1 font-mono leading-relaxed">{expectedPath}</p>
             </div>
           </div>
@@ -84,20 +85,20 @@ export default function PreviewPanel({ style }: Props) {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 9 5-5 4 4 4-4 5 5"/></svg>
           </div>
           <div>
-            <span className="text-[13px] font-semibold text-[#111827]">Visual Preview</span>
-            <span className="text-[11px] text-[#9ca3af] ml-2">Supporting reference — layout is the primary guide</span>
+            <span className="text-[13px] font-semibold text-[#111827]">{t.preview.title}</span>
+            <span className="text-[11px] text-[#9ca3af] ml-2">{t.preview.subtitle}</span>
           </div>
         </div>
         <button className="flex items-center gap-1.5 text-[12px] font-medium text-[#9ca3af] hover:text-[#6b7280] transition-colors">
           <RotateCcw size={12} />
-          Regenerate
+          {t.preview.regenerate}
         </button>
       </div>
 
       <div className="p-4 flex gap-3">
         <ImageCard
           src={style.planImage}
-          label="2D Sketch Plan"
+          label={t.preview.plan2d}
           icon={
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
           }
@@ -106,7 +107,7 @@ export default function PreviewPanel({ style }: Props) {
         />
         <ImageCard
           src={style.isoImage}
-          label="3D Isometric Preview"
+          label={t.preview.iso3d}
           icon={
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
           }
@@ -118,7 +119,7 @@ export default function PreviewPanel({ style }: Props) {
       {/* Disclaimer */}
       <div className="mx-4 mb-4 px-3 py-2 rounded-lg bg-[#fafaf9] border border-[#f0f0ee]">
         <p className="text-[11px] text-[#9ca3af] leading-relaxed">
-          These visuals are illustrative references only. Refer to the Placement Guide above for exact product positions and installation instructions.
+          {t.preview.disclaimer}
         </p>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { t } from '../content/copy';
 
 /* ─── Star rating ─────────────────────────────────────────────── */
 function Stars() {
@@ -56,9 +57,9 @@ function HeroImagePanel() {
             className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 text-center"
             style={{ zIndex: 5, maxWidth: 280 }}
           >
-            <p className="text-[11px] font-semibold text-[#374151] mb-0.5">Garden photo placeholder</p>
+            <p className="text-[11px] font-semibold text-[#374151] mb-0.5">{t.hero.imgPlaceholderTitle}</p>
             <p className="text-[10.5px] text-[#9ca3af] leading-snug font-mono">
-              Add image to:<br />public/images/hero-garden.jpg
+              {t.hero.imgPlaceholderSub}<br />public/images/hero-garden.jpg
             </p>
           </div>
         )}
@@ -98,8 +99,8 @@ function HeroImagePanel() {
           </svg>
         </div>
         <div>
-          <p className="text-[14px] font-bold text-[#111827] leading-tight">Designed for UK gardens</p>
-          <p className="text-[12.5px] text-[#6b7280] mt-0.5">Trusted by garden lovers</p>
+          <p className="text-[14px] font-bold text-[#111827] leading-tight">{t.hero.floatTitle}</p>
+          <p className="text-[12.5px] text-[#6b7280] mt-0.5">{t.hero.floatSub}</p>
           <Stars />
         </div>
       </div>
@@ -139,9 +140,9 @@ export default function Hero({ onStart }: Props) {
               letterSpacing: '-0.025em',
             }}
           >
-            Your space.<br />
-            Your perfect{' '}
-            <span style={{ color: '#256b28' }}>garden plan.</span>
+            {t.hero.headLine1}<br />
+            {t.hero.headLine2}{' '}
+            <span style={{ color: '#256b28' }}>{t.hero.headLineAccent}</span>
           </h1>
 
           {/* Sub-heading */}
@@ -149,7 +150,7 @@ export default function Hero({ onStart }: Props) {
             className="text-[#111827] mb-2"
             style={{ fontSize: 17, fontWeight: 700, lineHeight: 1.4 }}
           >
-            AI-powered garden plans using real UK products.
+            {t.hero.sub}
           </p>
 
           {/* Body */}
@@ -157,7 +158,7 @@ export default function Hero({ onStart }: Props) {
             className="text-[#4b5563] mb-8"
             style={{ fontSize: 15, lineHeight: 1.65, maxWidth: 400 }}
           >
-            Tell us about your space and get a personalised shopping plan that's beautiful, practical, and easy to achieve.
+            {t.hero.body}
           </p>
 
           {/* CTAs */}
@@ -176,7 +177,7 @@ export default function Hero({ onStart }: Props) {
               onMouseEnter={e => (e.currentTarget.style.background = '#1a6b35')}
               onMouseLeave={e => (e.currentTarget.style.background = '#14532d')}
             >
-              Create My Garden Plan
+              {t.hero.ctaPrimary}
               <ArrowRight size={16} strokeWidth={2.5} />
             </button>
             <a
@@ -193,18 +194,13 @@ export default function Hero({ onStart }: Props) {
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#d4d8d2'; (e.currentTarget as HTMLElement).style.color = '#374151'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor"/></svg>
-              See Example Plans
+              {t.hero.ctaSecondary}
             </a>
           </div>
 
           {/* Trust row — horizontal with pipe separators */}
           <div className="flex flex-wrap items-center gap-0">
-            {[
-              'Real UK products',
-              'Personalised for your space',
-              'Easy to follow',
-              'Beginner friendly',
-            ].map((label, i, arr) => (
+            {t.hero.trust.map((label, i, arr) => (
               <span key={label} className="flex items-center">
                 <span className="flex items-center gap-1.5" style={{ color: '#6b7280', fontSize: 13 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#256b28" strokeWidth="2.5" strokeLinecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>

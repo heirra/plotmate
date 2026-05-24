@@ -1,4 +1,5 @@
 import type { StyleConfig, DifficultyLevel } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   style: StyleConfig;
@@ -16,9 +17,9 @@ const diffCfg: Record<DifficultyLevel, { dot: string; label: string; bg: string;
 };
 
 const budgetCfg = {
-  under: { label: 'Under budget', dot: '#22c55e', bg: '#f0fdf4', text: '#166534', border: '#bbf7d0', barColor: '#16a34a' },
-  near:  { label: 'Near budget',  dot: '#f59e0b', bg: '#fffbeb', text: '#92400e', border: '#fde68a', barColor: '#d97706' },
-  over:  { label: 'Over budget',  dot: '#ef4444', bg: '#fef2f2', text: '#991b1b', border: '#fecaca', barColor: '#dc2626' },
+  under: { label: t.common.budgetStatus.under, dot: '#22c55e', bg: '#f0fdf4', text: '#166534', border: '#bbf7d0', barColor: '#16a34a' },
+  near:  { label: t.common.budgetStatus.near,  dot: '#f59e0b', bg: '#fffbeb', text: '#92400e', border: '#fde68a', barColor: '#d97706' },
+  over:  { label: t.common.budgetStatus.over,  dot: '#ef4444', bg: '#fef2f2', text: '#991b1b', border: '#fecaca', barColor: '#dc2626' },
 };
 
 function DifficultyPill({ level, label }: { level: DifficultyLevel; label: string }) {
@@ -28,7 +29,7 @@ function DifficultyPill({ level, label }: { level: DifficultyLevel; label: strin
       <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">{label}</p>
       <div className="flex items-center gap-2">
         <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: cfg.dot }} />
-        <span className="text-[14px] font-bold" style={{ color: cfg.text }}>{level}</span>
+        <span className="text-[14px] font-bold" style={{ color: cfg.text }}>{t.common.difficultyLabels[level] ?? level}</span>
       </div>
     </div>
   );
@@ -55,7 +56,7 @@ export default function KitOverview({ style, totalCost, budget, budgetStatus }: 
       <div className="px-6 py-5 border-b border-[#f0f0ee]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <p className="text-[10.5px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">Your selected kit</p>
+            <p className="text-[10.5px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">{t.kitOverview.selectedKit}</p>
             <h2 className="font-display text-[22px] font-semibold text-[#111827] leading-tight mb-1">{style.title}</h2>
             <p className="text-[13px] text-[#6b7280] leading-relaxed max-w-xl">{style.concept}</p>
           </div>
@@ -71,7 +72,7 @@ export default function KitOverview({ style, totalCost, budget, budgetStatus }: 
         <div>
           <div className="flex items-end justify-between mb-3">
             <div>
-              <p className="text-[10.5px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1">Estimated kit cost</p>
+              <p className="text-[10.5px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1">{t.kitOverview.estimatedCost}</p>
               <p className="text-[36px] font-bold text-[#111827] leading-none tracking-tight">
                 £{totalCost.toFixed(2)}
               </p>
@@ -83,7 +84,7 @@ export default function KitOverview({ style, totalCost, budget, budgetStatus }: 
               >
                 ● {bcfg.label}
               </span>
-              <span className="text-[11.5px] text-[#9ca3af]">of £{budget.toLocaleString()} budget</span>
+              <span className="text-[11.5px] text-[#9ca3af]">{t.kitOverview.ofBudget(budget.toLocaleString())}</span>
             </div>
           </div>
 
@@ -97,38 +98,38 @@ export default function KitOverview({ style, totalCost, budget, budgetStatus }: 
 
           {budgetStatus === 'under' && remaining > 0 && (
             <p className="text-[12px] text-[#166534] mt-2 font-medium">
-              £{remaining.toFixed(2)} remaining — consider upgrading seating or adding festoon lighting.
+              {t.kitOverview.remainingMsg(remaining.toFixed(2))}
             </p>
           )}
           {budgetStatus === 'over' && (
             <p className="text-[12px] text-[#dc2626] mt-2 font-medium">
-              £{Math.abs(remaining).toFixed(2)} over budget — reduce quantities on furniture items first.
+              {t.kitOverview.overMsg(Math.abs(remaining).toFixed(2))}
             </p>
           )}
         </div>
 
         {/* ── Difficulty + Zones ───────────────────────────────────── */}
         <div className="grid grid-cols-3 gap-3">
-          <DifficultyPill level={style.installationDifficulty} label="Installation" />
-          <DifficultyPill level={style.maintenanceDifficulty} label="Maintenance" />
+          <DifficultyPill level={style.installationDifficulty} label={t.kitOverview.installation} />
+          <DifficultyPill level={style.maintenanceDifficulty} label={t.kitOverview.maintenance} />
           <div className="flex-1 rounded-2xl px-4 py-3.5 bg-[#fafaf9] border border-[#e4e9e2]">
-            <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">Zones</p>
+            <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">{t.kitOverview.zones}</p>
             <div className="flex items-center gap-1.5">
               <span className="text-[22px] font-bold text-[#111827]">{style.placementZones.length}</span>
-              <span className="text-[12px] text-[#6b7280]">areas</span>
+              <span className="text-[12px] text-[#6b7280]">{t.kitOverview.areas}</span>
             </div>
           </div>
         </div>
 
         {/* ── Spatial experience ───────────────────────────────────── */}
         <div className="rounded-2xl bg-[#fafaf9] border border-[#e4e9e2] px-5 py-4">
-          <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">Spatial experience</p>
+          <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-1.5">{t.kitOverview.spatialExp}</p>
           <p className="text-[13.5px] font-medium text-[#374151] leading-relaxed">{style.spatialExperience}</p>
         </div>
 
         {/* ── Kit composition ─────────────────────────────────────── */}
         <div>
-          <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-2.5">What's in this kit</p>
+          <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-widest mb-2.5">{t.kitOverview.whatsInKit}</p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(catMap).map(([cat, qty]) => (
               <span
@@ -146,15 +147,15 @@ export default function KitOverview({ style, totalCost, budget, budgetStatus }: 
         <div className="pt-5 border-t border-[#f0f0ee] grid grid-cols-3 gap-4 text-center">
           <div>
             <p className="text-[22px] font-bold text-[#14532d]">{style.products.length}</p>
-            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">products</p>
+            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">{t.kitOverview.products}</p>
           </div>
           <div>
             <p className="text-[22px] font-bold text-[#14532d]">{plantCount}</p>
-            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">plant species</p>
+            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">{t.kitOverview.plantSpecies}</p>
           </div>
           <div>
             <p className="text-[22px] font-bold text-[#14532d]">{style.placementZones.length}</p>
-            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">layout zones</p>
+            <p className="text-[10.5px] text-[#9ca3af] mt-0.5">{t.kitOverview.layoutZones}</p>
           </div>
         </div>
       </div>

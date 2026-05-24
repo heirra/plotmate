@@ -1,4 +1,5 @@
 import type { StyleConfig, ProductCategory } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   style: StyleConfig;
@@ -36,11 +37,11 @@ export default function PlacementGuide({ style, products }: Props) {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div>
-          <span className="text-[13px] font-semibold text-[#111827]">Placement Guide</span>
-          <span className="text-[11px] text-[#9ca3af] ml-2">Where each product goes and why</span>
+          <span className="text-[13px] font-semibold text-[#111827]">{t.placement.title}</span>
+          <span className="text-[11px] text-[#9ca3af] ml-2">{t.placement.subtitle}</span>
         </div>
         <span className="ml-auto text-[11px] font-medium text-[#166534] bg-[#f0fdf4] border border-[#bbf7d0] px-2.5 py-0.5 rounded-full">
-          {style.placementZones.length} zones
+          {t.placement.zonesBadge(style.placementZones.length)}
         </span>
       </div>
 
@@ -58,7 +59,7 @@ export default function PlacementGuide({ style, products }: Props) {
                 <div className="flex-1">
                   <h3 className="text-[13px] font-semibold text-[#111827]">{zone.label}</h3>
                   <p className="text-[11.5px] text-[#6b7280] mt-0.5">
-                    <span className="font-medium text-[#166534]">Position: </span>
+                    <span className="font-medium text-[#166534]">{t.placement.position}</span>
                     {zone.position}
                   </p>
                   <p className="text-[12px] text-[#374151] leading-relaxed mt-1.5">{zone.purpose}</p>

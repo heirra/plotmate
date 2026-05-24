@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink, Download, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Product, ProductCategory } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   products: Product[];
@@ -47,9 +48,9 @@ function CategoryIcon({ category, size = 14, color = 'currentColor' }: { categor
 }
 
 const budgetCfg = {
-  under: { label: 'Under budget', bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
-  near:  { label: 'Near budget',  bg: '#fffbeb', color: '#92400e', border: '#fde68a' },
-  over:  { label: 'Over budget',  bg: '#fef2f2', color: '#991b1b', border: '#fecaca' },
+  under: { label: t.common.budgetStatus.under, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+  near:  { label: t.common.budgetStatus.near,  bg: '#fffbeb', color: '#92400e', border: '#fde68a' },
+  over:  { label: t.common.budgetStatus.over,  bg: '#fef2f2', color: '#991b1b', border: '#fecaca' },
 };
 
 function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQuantity: (id: string, delta: number) => void }) {
@@ -95,7 +96,7 @@ function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQ
         {/* Price */}
         <div className="text-right flex-shrink-0 w-20">
           <p className="text-[13px] font-bold text-[#111827]">£{(product.unitPrice * product.quantity).toFixed(2)}</p>
-          <p className="text-[10px] text-[#9ca3af]">£{product.unitPrice.toFixed(2)} each</p>
+          <p className="text-[10px] text-[#9ca3af]">£{product.unitPrice.toFixed(2)} {t.shopping.each}</p>
         </div>
 
         {/* Expand toggle */}
@@ -111,7 +112,7 @@ function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQ
       {showDetail && (
         <div className="px-5 pb-4 ml-12 space-y-3">
           <div className="bg-white border border-[#e4e9e2] rounded-xl p-3.5">
-            <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-wide mb-1.5">Placement & Installation</p>
+            <p className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-wide mb-1.5">{t.shopping.placementInstallation}</p>
             <p className="text-[12px] text-[#374151] leading-relaxed">{product.placementNote}</p>
           </div>
 
@@ -121,7 +122,7 @@ function ProductRow({ product, onUpdateQuantity }: { product: Product; onUpdateQ
               className="text-[12px] font-semibold text-[#166534] hover:text-[#14532d] transition-colors flex items-center gap-1.5"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              {showRetailers ? 'Hide retailers' : 'Where to buy'}
+              {showRetailers ? t.shopping.hideRetailers : t.shopping.whereToBuy}
             </button>
             {showRetailers && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -160,8 +161,8 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           </div>
           <div>
-            <span className="text-[13px] font-semibold text-[#111827]">Full Shopping List</span>
-            <span className="text-[11px] text-[#9ca3af] ml-2">{products.length} items · click any row for placement & retailer info</span>
+            <span className="text-[13px] font-semibold text-[#111827]">{t.shopping.title}</span>
+            <span className="text-[11px] text-[#9ca3af] ml-2">{t.shopping.subtitle(products.length)}</span>
           </div>
         </div>
         <div className="flex gap-2">
@@ -172,13 +173,13 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
             onMouseEnter={e => (e.currentTarget.style.background = '#1e5c23')}
             onMouseLeave={e => (e.currentTarget.style.background = '#256b28')}
           >
-            Retail partners <ExternalLink size={11} />
+            {t.shopping.retailPartners} <ExternalLink size={11} />
           </button>
           <button
             className="bg-white border border-[#e4e9e2] text-[#6b7280] text-[12px] font-medium px-3 py-2 rounded-xl hover:border-[#256b28] hover:text-[#256b28] transition-colors flex items-center gap-1.5"
             onClick={() => alert('Exporting shopping list as PDF...')}
           >
-            Export <Download size={11} />
+            {t.shopping.export} <Download size={11} />
           </button>
         </div>
       </div>
@@ -191,7 +192,7 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
             activeCategory === 'All' ? 'bg-[#256b28] text-white' : 'text-[#6b7280] bg-[#fafaf9] border border-[#e4e9e2] hover:border-[#256b28]/40 hover:text-[#256b28]'
           }`}
         >
-          All ({products.length})
+          {t.shopping.allFilter(products.length)}
         </button>
         {presentCategories.map((cat) => {
           const count = products.filter((p) => p.category === cat).length;
@@ -225,7 +226,7 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
       <div className="px-5 py-4 border-t border-[#e4e9e2] bg-[#fafaf9] flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div>
-            <p className="text-[11px] text-[#9ca3af] mb-0.5">Total estimated cost</p>
+            <p className="text-[11px] text-[#9ca3af] mb-0.5">{t.shopping.totalCost}</p>
             <p className="text-[24px] font-bold text-[#111827] leading-none">£{totalCost.toFixed(2)}</p>
           </div>
           <div className="flex flex-col gap-1.5">
@@ -235,11 +236,11 @@ export default function ShoppablePlan({ products, totalCost, budget, budgetStatu
             >
               {cfg.label}
             </span>
-            <span className="text-[11px] text-[#9ca3af]">Budget £{budget.toLocaleString()}.00</span>
+            <span className="text-[11px] text-[#9ca3af]">{t.shopping.budgetLabel(`${budget.toLocaleString()}.00`)}</span>
           </div>
         </div>
         <p className="text-[11px] text-[#9ca3af] max-w-[260px] text-right leading-relaxed">
-          Prices are indicative. Actual costs vary by retailer and availability. Always get a quote before purchasing.
+          {t.shopping.disclaimer}
         </p>
       </div>
     </div>

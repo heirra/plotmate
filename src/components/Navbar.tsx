@@ -1,10 +1,12 @@
+import { t } from '../content/copy';
+
 const navLinks = [
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Garden Plans', href: '#builder' },
-  { label: 'Shop', href: '#builder' },
-  { label: 'Plant Guide', href: '#' },
-  { label: 'Inspiration', href: '#' },
-  { label: 'About Us', href: '#' },
+  { label: t.nav.howItWorks,  href: '#how-it-works' },
+  { label: t.nav.gardenPlans, href: '#builder' },
+  { label: t.nav.shop,        href: '#builder' },
+  { label: t.nav.plantGuide,  href: '#' },
+  { label: t.nav.inspiration, href: '#' },
+  { label: t.nav.aboutUs,     href: '#' },
 ];
 
 /* ── Botanical two-leaf logo mark ───────────────────────────────── */
@@ -125,7 +127,7 @@ export default function Navbar({ onStart }: Props) {
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#b0b8ac'; (e.currentTarget as HTMLElement).style.color = '#111827'; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#d8dbd6'; (e.currentTarget as HTMLElement).style.color = '#374151'; }}
           >
-            Log in
+            {t.nav.login}
           </a>
           <button
             onClick={onStart}
@@ -142,7 +144,7 @@ export default function Navbar({ onStart }: Props) {
             onMouseEnter={e => (e.currentTarget.style.background = '#1e5c23')}
             onMouseLeave={e => (e.currentTarget.style.background = '#256b28')}
           >
-            Get started
+            {t.nav.getStarted}
           </button>
         </div>
       </div>

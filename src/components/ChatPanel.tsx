@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
 import type { ChatMessage } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   messages: ChatMessage[];
@@ -8,15 +9,6 @@ interface Props {
   onInputChange: (val: string) => void;
   onSend: () => void;
 }
-
-const suggestions = [
-  'How difficult is this to install?',
-  'I want something low maintenance',
-  'I have a shady garden',
-  'Make it more private',
-  'I want a dining area',
-  'Explain the maintenance level',
-];
 
 export default function ChatPanel({ messages, input, onInputChange, onSend }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -40,8 +32,8 @@ export default function ChatPanel({ messages, input, onInputChange, onSend }: Pr
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div>
-          <span className="text-[13px] font-semibold text-[#111827]">Refine your garden plan</span>
-          <span className="text-[11px] text-[#9ca3af] ml-2">Ask about any product, placement, or style</span>
+          <span className="text-[13px] font-semibold text-[#111827]">{t.chat.title}</span>
+          <span className="text-[11px] text-[#9ca3af] ml-2">{t.chat.subtitle}</span>
         </div>
       </div>
 
@@ -50,7 +42,7 @@ export default function ChatPanel({ messages, input, onInputChange, onSend }: Pr
         {messages.length === 0 && (
           <div className="flex items-center gap-2 text-[12px] text-[#9ca3af]">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Ask about installation difficulty, maintenance, product placement, or switch styles.
+            {t.chat.emptyState}
           </div>
         )}
         {messages.map((msg) => (
@@ -80,7 +72,7 @@ export default function ChatPanel({ messages, input, onInputChange, onSend }: Pr
       {/* Suggestion chips */}
       {messages.length === 0 && (
         <div className="px-5 pb-3 flex gap-2 flex-wrap">
-          {suggestions.map((s) => (
+          {t.chat.suggestions.map((s) => (
             <button
               key={s}
               onClick={() => onInputChange(s)}
@@ -100,7 +92,7 @@ export default function ChatPanel({ messages, input, onInputChange, onSend }: Pr
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="Ask about installation, maintenance, products, or switch styles..."
+            placeholder={t.chat.placeholder}
             className="flex-1 text-[12.5px] px-4 py-3 focus:outline-none text-[#111827] placeholder-[#9ca3af] bg-white"
           />
           <button

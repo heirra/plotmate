@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { t } from '../content/copy';
 import type { AppState, ChatMessage, Product, GardenStyleId, StyleConfig, PostcodeInfo } from '../types';
 import ProjectSettings from '../components/ProjectSettings';
 import KitOverview from '../components/KitOverview';
@@ -32,10 +33,10 @@ interface Props {
 }
 
 const TABS: { id: Tab; label: string }[] = [
-  { id: 'overview',  label: 'Overview' },
-  { id: 'placement', label: 'Placement Guide' },
-  { id: 'shopping',  label: 'Shopping List' },
-  { id: 'preview',   label: 'Visual Preview' },
+  { id: 'overview',  label: t.builder.tabs.overview },
+  { id: 'placement', label: t.builder.tabs.placement },
+  { id: 'shopping',  label: t.builder.tabs.shopping },
+  { id: 'preview',   label: t.builder.tabs.preview },
 ];
 
 export default function BuilderPage({
@@ -61,7 +62,7 @@ export default function BuilderPage({
             className="flex items-center gap-1.5 text-[13px] font-medium text-[#6b7280] hover:text-[#111827] transition-colors mr-2"
           >
             <ArrowLeft size={15} />
-            Back
+            {t.builder.back}
           </button>
 
           <div className="w-px h-5 bg-[#e4e9e2] flex-shrink-0" />
@@ -82,7 +83,7 @@ export default function BuilderPage({
 
           {/* Current style breadcrumb */}
           <span style={{ fontSize: 13, color: '#6b7280' }}>
-            Plan builder
+            {t.builder.breadcrumb}
           </span>
           <span style={{ fontSize: 13, color: '#9ca3af' }}>→</span>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>

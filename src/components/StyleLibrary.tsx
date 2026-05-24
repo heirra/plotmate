@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { StyleConfig, GardenStyleId } from '../types';
+import { t } from '../content/copy';
 
 interface Props {
   styles: StyleConfig[];
@@ -37,7 +38,7 @@ function StyleCard({
               <rect x="3" y="3" width="18" height="18" rx="2"/>
               <path d="m3 9 5-5 4 4 4-4 5 5"/>
             </svg>
-            <span className="text-[9px] text-[#d1d5db] font-medium">No preview</span>
+            <span className="text-[9px] text-[#d1d5db] font-medium">{t.styleLibrary.noPreview}</span>
           </div>
         ) : (
           <img
@@ -63,7 +64,7 @@ function StyleCard({
         <p className={`text-[12px] font-semibold leading-snug ${active ? 'text-[#14532d]' : 'text-[#111827]'}`}>
           {style.name}
         </p>
-        <p className="text-[10px] text-[#9ca3af] mt-0.5">{style.products.length} products</p>
+        <p className="text-[10px] text-[#9ca3af] mt-0.5">{t.styleLibrary.products(style.products.length)}</p>
       </div>
     </button>
   );
@@ -78,12 +79,12 @@ export default function StyleLibrary({ styles, activeId, onSelect }: Props) {
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           </div>
           <div>
-            <span className="text-[13px] font-semibold text-[#111827]">Style library</span>
-            <span className="text-[11px] text-[#9ca3af] ml-2">Explore popular garden styles</span>
+            <span className="text-[13px] font-semibold text-[#111827]">{t.styleLibrary.title}</span>
+            <span className="text-[11px] text-[#9ca3af] ml-2">{t.styleLibrary.subtitle}</span>
           </div>
         </div>
         <button className="text-[12px] font-medium text-[#166534] hover:text-[#14532d] transition-colors flex items-center gap-1">
-          View all
+          {t.styleLibrary.viewAll}
           <ArrowRight size={12} />
         </button>
       </div>
@@ -98,7 +99,7 @@ export default function StyleLibrary({ styles, activeId, onSelect }: Props) {
         ))}
       </div>
       <div className="px-5 pb-3">
-        <p className="text-[11px] text-[#9ca3af]">You can switch styles at any time — your settings (budget, maintenance, sunlight) are preserved.</p>
+        <p className="text-[11px] text-[#9ca3af]">{t.styleLibrary.switchNote}</p>
       </div>
     </div>
   );
